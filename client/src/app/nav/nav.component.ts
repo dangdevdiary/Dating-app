@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AccountService } from '../_services/account.service';
 import { BsDropdownConfig } from 'ngx-bootstrap/dropdown';
 import { BehaviorSubject } from 'rxjs';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-nav',
   templateUrl: './nav.component.html',
@@ -15,37 +17,26 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class NavComponent implements OnInit {
   model: any = {};
-  loggedIn = false;
-  constructor(public accountService: AccountService) {}
+  constructor(
+    public accountService: AccountService,
+    private router: Router,
+    private toast: ToastrService
+  ) {}
 
-  ngOnInit(): void {
-    this.getCurrentUser();
-  }
-  /**
-   * getCurrentUser
-   */
-  public getCurrentUser() {
-    this.accountService.currentUser$.subscribe({
-      next: (user) => {
-        this.loggedIn = !!user;
-      },
-      error: (err) => {
-        console.log(err);
-      },
-    });
-  }
+  ngOnInit(): void {}
+
   login() {
     this.accountService.login(this.model).subscribe({
       next: (res) => {
-        this.loggedIn = true;
+        this.router.navigateByUrl('/members');
       },
-      error(err) {
-        console.log(err);
+      error: (err) => {
+        this.toast.error(err.error, 'Error');
       },
     });
   }
   logout() {
-    this.loggedIn = false;
+    this.router.navigateByUrl('/');
     this.accountService.logout();
   }
 }

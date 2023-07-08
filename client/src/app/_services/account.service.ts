@@ -31,4 +31,7 @@ export class AccountService {
     localStorage.removeItem('user');
     this.currentUser.next(null);
   }
+  register(user: User) {
+    return this.httpClient.post<User>(this.baseUrl + 'account/register', user);
+  }
 }

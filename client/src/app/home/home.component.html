@@ -1,0 +1,21 @@
+<section class="container mt-5">
+  <div class="text-center">
+    <h1>Find your match</h1>
+    <p>Come on in to view your match... all you need to do is sign up!</p>
+    <div class="text-center">
+      <button (click)="toggleRegister()" class="btn btn-primary btn-lg me-2">
+        Register
+      </button>
+      <button class="btn btn-primary btn-lg me-2">Learn more</button>
+    </div>
+  </div>
+  <div class="container" *ngIf="registerMode">
+    <div class="justify-content-center row">
+      <div class="col-4">
+        <app-register
+          (cancelRegisterEvennt)="cancelRegister($event)"
+        ></app-register>
+      </div>
+    </div>
+  </div>
+</section>
