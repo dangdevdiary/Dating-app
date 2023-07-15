@@ -1,0 +1,10 @@
+.card {
+  padding: 1rem;
+}
+.card-footer {
+  border-top: none;
+}
+.ngx-gallery {
+  display: inline-block;
+  margin-bottom: 20px;
+}

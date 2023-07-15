@@ -1,0 +1,30 @@
+<div class="card" *ngIf="member">
+  <div class="card-img-wrapper">
+    <img
+      class="card-img-top"
+      src="{{ member.avatar }}"
+      alt="{{ member.knownAs }}"
+    />
+    <ul class="list-inline text-center animate member-icons">
+      <li
+        class="list-inline-item btn btn-warning"
+        routerLink="/members/{{ member.userName }}"
+      >
+        <i class="fa fa-user"></i>
+      </li>
+      <li class="list-inline-item btn btn-warning">
+        <i class="fa fa-heart"></i>
+      </li>
+      <li class="list-inline-item btn btn-warning">
+        <i class="fa fa-envelope"></i>
+      </li>
+    </ul>
+  </div>
+  <div class="card-body">
+    <h6 class="cart-title text-center mb-1">
+      <i class="fa fa-user me-2"></i>
+      <span>{{ member.knownAs }}</span>
+    </h6>
+    <p class="card-text card-muted text-center">{{ member.city }}</p>
+  </div>
+</div>
