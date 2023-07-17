@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
@@ -19,7 +19,8 @@ import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { ServerErrorComponent } from './errors/server-error/server-error.component';
 import { MemberCardComponent } from './members/member-card/member-card.component';
 import { JwtInterceptor } from './_interceptor/jwt.interceptor';
-
+import { UserProfileComponent } from './users/user-profile/user-profile.component';
+import { LoadingInterceptor } from './_interceptor/loading.interceptor';
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,6 +35,7 @@ import { JwtInterceptor } from './_interceptor/jwt.interceptor';
     NotFoundComponent,
     ServerErrorComponent,
     MemberCardComponent,
+    UserProfileComponent,
   ],
   imports: [
     BrowserModule,
@@ -52,6 +54,11 @@ import { JwtInterceptor } from './_interceptor/jwt.interceptor';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: JwtInterceptor,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoadingInterceptor,
       multi: true,
     },
   ],
