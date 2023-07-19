@@ -51,8 +51,9 @@
         *ngIf="accountService.currentUser$ | async as user"
         dropdown
       >
+        <img [src]="user.avatar" class="me-2" alt="user" />
         <a
-          class="dropdown-toggle text-black"
+          class="dropdown-toggle text-black text-decoration-none"
           aria-controls="dropdown-animated"
           dropdownToggle
           id="button-animated"

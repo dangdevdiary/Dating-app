@@ -1,3 +1,9 @@
 .active {
   color: white !important;
 }
+.dropdown img {
+  max-height: 40px;
+  /* border: 1px solid #333; */
+  border-radius: 50%;
+  display: inline;
+}

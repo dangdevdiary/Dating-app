@@ -37,8 +37,8 @@ namespace API.Controllers
             await _context.SaveChangesAsync();
             return Ok(new UserDto
             {
-                userName = newUser.UserName,
-                token = _tokenService.CreateToken(newUser)
+                UserName = newUser.UserName,
+                Token = _tokenService.CreateToken(newUser)
             });
         }
         public async Task<bool> UserExist(string userName)
@@ -48,7 +48,7 @@ namespace API.Controllers
         [HttpPost("login")]
         public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.UserName == loginDto.UserName);
+            var user = await _context.Users.Include(u => u.Photos).FirstOrDefaultAsync(u => u.UserName == loginDto.UserName);
             if (user == null) return Unauthorized("Invalid Username");
             using var hmac = new HMACSHA512(user.PasswordSalt);
             var computeHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(loginDto.Password));
@@ -58,8 +58,9 @@ namespace API.Controllers
             }
             return Ok(new UserDto
             {
-                userName = user.UserName,
-                token = _tokenService.CreateToken(user)
+                UserName = user.UserName,
+                Token = _tokenService.CreateToken(user),
+                Avatar = user.Photos.FirstOrDefault(p => p.IsMain)?.Url
             });
         }
     }

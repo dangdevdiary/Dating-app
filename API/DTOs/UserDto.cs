@@ -4,7 +4,8 @@ namespace API.DTOs
 {
     public class UserDto
     {
-        public string userName { get; set; }
-        public string token { get; set; }
+        public string UserName { get; set; }
+        public string Token { get; set; }
+        public string Avatar { get; set; }
     }
 }

@@ -30,4 +30,10 @@ export class MembersService {
   updateUser(user: Member) {
     return this.http.put(this.baseUrl + 'users', user);
   }
+  setAvatar(idImg: number) {
+    return this.http.put(this.baseUrl + 'users/set-avatar/' + idImg, {});
+  }
+  deletePhoto(idImg: number) {
+    return this.http.delete(this.baseUrl + 'users/delete-photo/' + idImg);
+  }
 }
