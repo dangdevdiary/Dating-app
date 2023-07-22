@@ -1,10 +1,10 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
@@ -22,6 +22,8 @@ import { JwtInterceptor } from './_interceptor/jwt.interceptor';
 import { UserProfileComponent } from './users/user-profile/user-profile.component';
 import { LoadingInterceptor } from './_interceptor/loading.interceptor';
 import { PhotoEditorComponent } from './users/photo-editor/photo-editor.component';
+import { InputTextComponent } from './forms/input-text/input-text.component';
+import { DatePickerComponent } from './forms/date-picker/date-picker.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,6 +40,8 @@ import { PhotoEditorComponent } from './users/photo-editor/photo-editor.componen
     MemberCardComponent,
     UserProfileComponent,
     PhotoEditorComponent,
+    InputTextComponent,
+    DatePickerComponent,
   ],
   imports: [
     BrowserModule,
@@ -46,6 +50,7 @@ import { PhotoEditorComponent } from './users/photo-editor/photo-editor.componen
     FormsModule,
     BrowserAnimationsModule,
     SharedModule,
+    ReactiveFormsModule,
   ],
   providers: [
     {

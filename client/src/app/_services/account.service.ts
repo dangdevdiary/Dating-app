@@ -32,6 +32,15 @@ export class AccountService {
     this.currentUser.next(null);
   }
   register(user: User) {
-    return this.httpClient.post<User>(this.baseUrl + 'account/register', user);
+    return this.httpClient
+      .post<User>(this.baseUrl + 'account/register', user)
+      .pipe(
+        map((res) => {
+          const user = res;
+          if (user) {
+            this.setCurrentUser(user);
+          }
+        })
+      );
   }
 }

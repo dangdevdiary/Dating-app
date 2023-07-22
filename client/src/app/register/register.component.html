@@ -1,29 +1,75 @@
-<form #registerForm="ngForm" (ngSubmit)="register()">
+<form [formGroup]="registerForm" (ngSubmit)="registerForm.valid && register()">
   <h2 class="text-primary text-center">Sign up</h2>
   <hr />
   <div class="mb-3">
-    <input
-      [(ngModel)]="model.userName"
-      name="userName"
-      type="text"
-      placeholder="Username"
-      class="form-control"
-    />
+    <label class="me-3">I'm a: </label>
+    <label class="form-check-label me-2">
+      <input
+        type="radio"
+        value="male"
+        formControlName="gender"
+        class="form-check-input"
+      />
+      Male
+    </label>
+    <label class="form-check-label">
+      <input
+        type="radio"
+        value="female"
+        formControlName="gender"
+        class="form-check-input"
+      />
+      Female
+    </label>
   </div>
-
-  <div class="mb-3">
-    <input
-      [(ngModel)]="model.password"
-      name="password"
-      type="password"
-      placeholder="Password"
-      class="form-control"
-    />
-  </div>
+  <app-input-text
+    [label]="'username'"
+    [formControl]="$any(registerForm.controls['userName'])"
+  ></app-input-text>
+  <app-input-text
+    [label]="'password'"
+    [formControl]="$any(registerForm.controls['password'])"
+    [type]="'password'"
+  ></app-input-text>
+  <app-input-text
+    [formControl]="$any(registerForm.controls['confirmPassword'])"
+    [type]="'password'"
+    [label]="'confirm password'"
+  ></app-input-text>
+  <app-input-text
+    [label]="'city'"
+    [formControl]="$any(registerForm.controls['city'])"
+  ></app-input-text>
+  <app-input-text
+    [label]="'country'"
+    [formControl]="$any(registerForm.controls['country'])"
+  ></app-input-text>
+  <app-date-picker
+    [label]="'date of birth'"
+    [maxDate]="maxDate"
+    [formControl]="$any(registerForm.controls['dateOfBirth'])"
+  ></app-date-picker>
+  <app-input-text
+    [label]="'known as'"
+    [formControl]="$any(registerForm.controls['knownAs'])"
+  ></app-input-text>
+  <ng-container *ngIf="errList">
+    <ul>
+      <li class="text-danger" *ngFor="let err of errList">{{ err }}</li>
+    </ul>
+  </ng-container>
   <div class="text-center">
-    <button class="btn btn-primary me-3" type="submit">Register</button>
+    <button
+      class="btn btn-primary me-3"
+      type="submit"
+      [disabled]="registerForm.invalid"
+    >
+      Register
+    </button>
     <button class="btn btn-info" type="button" (click)="cancel()">
       Cancel
     </button>
   </div>
 </form>
+<h4>{{ registerForm.value | json }}</h4>
+<h4>{{ registerForm.valid | json }}</h4>

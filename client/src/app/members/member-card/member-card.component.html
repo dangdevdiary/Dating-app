@@ -2,7 +2,7 @@
   <div class="card-img-wrapper">
     <img
       class="card-img-top"
-      src="{{ member.avatar }}"
+      src="{{ member.avatar || './assets/user.png' }}"
       alt="{{ member.knownAs }}"
     />
     <ul class="list-inline text-center animate member-icons">

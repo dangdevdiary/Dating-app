@@ -5,6 +5,7 @@ using API.Data;
 using API.DTOs;
 using API.Entities;
 using API.Interfaces;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,10 +15,12 @@ namespace API.Controllers
     {
         private readonly DataContext _context;
         private readonly ITokenService _tokenService;
-        public AccountController(DataContext context, ITokenService tokenService)
+        private readonly IMapper _mapper;
+        public AccountController(DataContext context, ITokenService tokenService, IMapper mapper)
         {
             _tokenService = tokenService;
             _context = context;
+            _mapper = mapper;
         }
         [HttpPost("register")]
         public async Task<ActionResult<AppUser>> RegisterAccount(RegisterDto registerDto)
@@ -27,18 +30,17 @@ namespace API.Controllers
                 return BadRequest("User is taken!");
             }
             using var hmac = new HMACSHA512();
-            var newUser = new AppUser
-            {
-                UserName = registerDto.UserName.ToLower(),
-                PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password)),
-                PasswordSalt = hmac.Key
-            };
+            var newUser = _mapper.Map<AppUser>(registerDto);
+            newUser.UserName = registerDto.UserName.ToLower();
+            newUser.PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password));
+            newUser.PasswordSalt = hmac.Key;
             _context.Users.Add(newUser);
             await _context.SaveChangesAsync();
             return Ok(new UserDto
             {
                 UserName = newUser.UserName,
-                Token = _tokenService.CreateToken(newUser)
+                Token = _tokenService.CreateToken(newUser),
+                KnownAs = newUser.KnownAs
             });
         }
         public async Task<bool> UserExist(string userName)

@@ -1,0 +1,25 @@
+<div class="mb-3">
+  <input
+    type="{{ type }}"
+    [class]="{
+      'is-invalid': control.touched && control.invalid
+    }"
+    [formControl]="control"
+    placeholder="{{ label }}"
+    class="form-control"
+  />
+  <span class="invalid-feedback" *ngIf="control.errors?.['required']"
+    >Please enter a {{ label }}</span
+  >
+  <span class="invalid-feedback" *ngIf="control.errors?.['minlength']"
+    >{{ label | titlecase }} must be at least
+    {{control.errors?.['minlength'].requiredLength}} character</span
+  >
+  <span class="invalid-feedback" *ngIf="control.errors?.['maxlength']"
+    >{{ label | titlecase }} must be at most
+    {{control.errors?.['maxlength'].requiredLength}} character</span
+  >
+  <span class="invalid-feedback" *ngIf="control.errors?.['notMatch']"
+    >Not match with password</span
+  >
+</div>
