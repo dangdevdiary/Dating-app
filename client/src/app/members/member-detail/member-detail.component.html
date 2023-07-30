@@ -1,4 +1,4 @@
-<section class="row" *ngIf="member">
+<section class="row">
   <div class="col-4">
     <div class="card">
       <img
@@ -17,7 +17,9 @@
         </div>
         <div>
           <strong>Last Active:</strong>
-          <p>{{ member.lastActive + "Z" | timeago }}</p>
+          <p>
+            {{ member.lastActive + "Z" | timeago }}
+          </p>
         </div>
         <div>
           <strong>Member since:</strong>
@@ -27,24 +29,29 @@
       <footer class="card-footer">
         <div class="btn-group d-flex">
           <button class="btn btn-warning">Like</button>
-          <button class="btn btn-success">Messages</button>
+          <button (click)="selectTab('Messages')" class="btn btn-success">
+            Messages
+          </button>
         </div>
       </footer>
     </div>
   </div>
   <div class="col-8">
-    <tabset class="member-tabset">
-      <tab heading="About {{ member.knownAs }}">
+    <tabset class="member-tabset" #tab>
+      <tab
+        heading="About {{ member.knownAs }}"
+        (selectTab)="onTabActive($event)"
+      >
         <h4>Description</h4>
         <p>{{ member.introduction }}</p>
         <h4>Looking for:</h4>
         <p>{{ member.lookingFor }}</p>
       </tab>
-      <tab heading="Interests">
+      <tab heading="Interests" (selectTab)="onTabActive($event)">
         <h4>Interests</h4>
         <p>{{ member.interests }}</p>
       </tab>
-      <tab heading="Photos">
+      <tab heading="Photos" (selectTab)="onTabActive($event)">
         <h4>Photos</h4>
         <ngx-gallery
           [options]="galleryOptions"
@@ -52,9 +59,12 @@
           class="ngx-gallery"
         ></ngx-gallery>
       </tab>
-      <tab heading="Messages">
+      <tab heading="Messages" (selectTab)="onTabActive($event)">
         <h4>Messages</h4>
-        <p>message go here</p>
+        <app-member-messages
+          [messages]="messages"
+          [userName]="member.userName"
+        ></app-member-messages>
       </tab>
     </tabset>
   </div>
