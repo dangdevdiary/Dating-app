@@ -2,7 +2,7 @@ import { User } from './user';
 
 export class UserParams {
   pageNumber = 1;
-  pageSize = 3;
+  pageSize = 6;
   gender: string;
   minAge = 18;
   maxAge = 99;

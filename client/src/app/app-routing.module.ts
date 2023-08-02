@@ -12,6 +12,8 @@ import { ServerErrorComponent } from './errors/server-error/server-error.compone
 import { UserProfileComponent } from './users/user-profile/user-profile.component';
 import { PreventUnsavedChangesGuard } from './_guards/prevent-unsaved-changes.guard';
 import { MemberDetailResolver } from './_resolve/member-detail.resolver';
+import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
+import { AdminGuard } from './_guards/admin.guard';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -20,6 +22,11 @@ const routes: Routes = [
     runGuardsAndResolvers: 'always',
     canActivate: [AuthGuard],
     children: [
+      {
+        path: 'admin',
+        component: AdminPanelComponent,
+        canActivate: [AdminGuard],
+      },
       { path: 'members', component: MemberListComponent },
       {
         path: 'members/:username',

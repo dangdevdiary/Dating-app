@@ -24,6 +24,9 @@ export class AccountService {
       );
   }
   setCurrentUser(user: User) {
+    const userRole = this.decodeToken(user.token).role;
+    if (Array.isArray(userRole)) user.role = userRole;
+    else user.role = [userRole];
     localStorage.setItem('user', JSON.stringify(user));
     this.currentUser.next(user);
   }
@@ -42,5 +45,8 @@ export class AccountService {
           }
         })
       );
+  }
+  decodeToken(token: string) {
+    return JSON.parse(atob(token.split('.')[1]));
   }
 }

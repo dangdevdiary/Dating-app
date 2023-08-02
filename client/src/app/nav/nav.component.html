@@ -42,8 +42,13 @@
               >Message</a
             >
           </li>
-          <li class="nav-item" (click)="logout()">
-            <a class="nav-link fw-semibold fs-5 text-black">Logout</a>
+          <li *appHasRole="['admin', 'moderator']" class="nav-item">
+            <a
+              routerLinkActive="active"
+              routerLink="/admin"
+              class="nav-link fw-semibold fs-5 text-black"
+              >Admin</a
+            >
           </li>
         </ng-container>
       </ul>
