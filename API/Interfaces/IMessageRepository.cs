@@ -14,5 +14,12 @@ namespace API.Interfaces
         Task<PagedList<MessageDto>> GetMessageForUser(MessageParams messageParams);
         Task<IEnumerable<MessageDto>> GetMessageThread(string currentUserName, string RecipientUserName);
         Task<bool> SavaAllAsync();
+
+        void AddGroup(Group group);
+        void RemoveConnection(Connection connection);
+        Task<Connection> GetConnection(string connectionId);
+        Task<Group> GetMessGroup(string groupName);
+
+        Task<Group> GetGroupForConnection(string connectionId);
     }
 }

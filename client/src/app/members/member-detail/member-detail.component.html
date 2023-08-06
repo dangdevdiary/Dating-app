@@ -18,7 +18,7 @@
         <div>
           <strong>Last Active:</strong>
           <p>
-            {{ member.lastActive + "Z" | timeago }}
+            {{ member.lastActive | timeago }}
           </p>
         </div>
         <div>
@@ -60,11 +60,7 @@
         ></ngx-gallery>
       </tab>
       <tab heading="Messages" (selectTab)="onTabActive($event)">
-        <h4>Messages</h4>
-        <app-member-messages
-          [messages]="messages"
-          [userName]="member.userName"
-        ></app-member-messages>
+        <app-member-messages [userName]="member.userName"></app-member-messages>
       </tab>
     </tabset>
   </div>

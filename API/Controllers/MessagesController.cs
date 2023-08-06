@@ -54,7 +54,8 @@ namespace API.Controllers
         public async Task<ActionResult<IEnumerable<MessageDto>>> GetMessThread(string userName)
         {
             var currentUserName = User.GetUserName();
-            return Ok(await _messageRepository.GetMessageThread(currentUserName, userName));
+            var a = await _messageRepository.GetMessageThread(currentUserName, userName);
+            return Ok(a);
         }
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteMess(int id)

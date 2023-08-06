@@ -29,7 +29,16 @@
   </div>
   <div class="card-body">
     <h6 class="cart-title text-center mb-1">
-      <i class="fa fa-user me-2"></i>
+      <span
+        [ngClass]="{
+          'is-online': (presenceService.usersOnline | async)?.includes(
+            member.userName
+          )
+        }"
+      >
+        <i class="fa fa-user me-2"></i>
+      </span>
+
       <span>{{ member.knownAs }},{{ member.age }}</span>
     </h6>
     <p class="card-text card-muted text-center">{{ member.city }}</p>
