@@ -7,6 +7,9 @@
     <ul
       *ngIf="(messageService.messageThread$ | async)!.length > 0"
       class="chat"
+      #scrollMe
+      [scrollTop]="scrollMe.scrollHeight"
+      style="overflow-y: scroll; max-height: 500px"
     >
       <li *ngFor="let message of messageService.messageThread$ | async">
         <div>

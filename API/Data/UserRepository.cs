@@ -53,15 +53,16 @@ namespace API.Data
 
         }
 
-        public async Task<bool> SaveAllAsync()
-        {
-            return await _context.SaveChangesAsync() > 0;
-        }
+
 
         public void Update(AppUser user)
         {
             _context.Entry(user).State = EntityState.Modified;
         }
 
+        public async Task<string> GetGender(string userName)
+        {
+            return await _context.Users.Where(u => u.UserName == userName).Select(u => u.Gender).FirstOrDefaultAsync();
+        }
     }
 }
